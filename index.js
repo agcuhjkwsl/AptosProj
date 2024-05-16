@@ -1,13 +1,15 @@
-function wiggleMaxLength(nums) {
-  if (nums.length === 0) return 0;
-  let up = 1;
-  let down = 1;
-  for (let i = 1; i < nums.length; i++) {
-    if (nums[i] > nums[i - 1]) {
-      up = down + 1;
-    } else if (nums[i] < nums[i - 1]) {
-      down = up + 1;
+function isValidBST(root) {
+  const stack = [];
+  let inorder = -Infinity;
+  while (stack.length || root) {
+    while (root) {
+      stack.push(root);
+      root = root.left;
     }
+    root = stack.pop();
+    if (root.val <= inorder) return false;
+    inorder = root.val;
+    root = root.right;
   }
-  return Math.max(up, down);
+  return true;
 }
